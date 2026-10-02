@@ -1,6 +1,6 @@
-
 const { chromium } = require("playwright");
 const readline = require("readline");
+const { downloadCourseMaterials } = require("./downloader");
 
 const LMS_LOGIN_URL = "https://lms.ssn.edu.in/login/index.php";
 const MY_COURSES_URL = "https://lms.ssn.edu.in/my/courses.php";
@@ -156,6 +156,11 @@ async function testCourseSearch() {
         console.log("\n✓ Course page opened");
         console.log("Current URL:", page.url());
         console.log("Page title:", await page.title());
+
+        await downloadCourseMaterials(
+            page,
+            selectedCourse.name
+            );
     } else {
         console.log("✗ Invalid course selection.");
     }
